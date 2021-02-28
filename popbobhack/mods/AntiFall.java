@@ -6,7 +6,7 @@ import popbobhack.main.PopbobHack;
 public class AntiFall extends Module{
 
 	public AntiFall() {
-		super("AntiFall", 0, Category.PLAYER);
+		super("AntiFall", 0, Category.MOVEMENT);
 		// TODO Auto-generated constructor stub
 	}
 	public void onUpdate() {

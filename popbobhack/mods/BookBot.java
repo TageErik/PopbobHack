@@ -9,6 +9,7 @@ import java.io.IOException;
 import net.minecraft.src.GuiScreenBook;
 import net.minecraft.src.Minecraft;
 import net.minecraft.src.NBTTagString;
+import popbobhack.config.RandomShit;
 
 public class BookBot {
 	public static int i3 = 0;
@@ -75,6 +76,7 @@ public class BookBot {
 	    	if(fuckingpenis) {
 	    	i3 = 0;
 	    	}
+	    	RandomShit.onListUpdated();
 			reader.close();
 			} else {
 				Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> ERROR: Book needs to have text written in it");

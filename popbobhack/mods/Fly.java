@@ -11,11 +11,9 @@ public class Fly extends Module{
 	public static float flyHackHorizontalSpeed = 0.2f;
 	
 	public Fly() {
-		super("Fly", 0,Category.PLAYER);
+		super("Fly", 0,Category.MOVEMENT);
 	}
    public void onDisable() {
-	   mc.thePlayer.capabilities.isFlying = false;
-	   //mc.thePlayer.jumpMovementFactor = 0.02F;
 	   super.onDisable();
    }
 	

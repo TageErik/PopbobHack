@@ -7,7 +7,7 @@ import popbobhack.main.Category;
 public class AutoWalk extends Module{
 
 	public AutoWalk() {
-		super("AutoWalk", 0, Category.PLAYER);
+		super("AutoWalk", 0, Category.MOVEMENT);
 		
 	}
 

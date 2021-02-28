@@ -13,6 +13,8 @@ import org.lwjgl.input.Keyboard;
 
 import net.minecraft.src.Block;
 import net.minecraft.src.GuiChest;
+import net.minecraft.src.GuiDisconnected;
+import net.minecraft.src.GuiEditSign;
 import net.minecraft.src.GuiScreen;
 import net.minecraft.src.GuiScreenBook;
 import net.minecraft.src.Item;
@@ -27,24 +29,7 @@ import net.minecraft.src.Packet250CustomPayload;
 import popbobhack.config.KeyBinds;
 import popbobhack.config.RandomShit;
 import popbobhack.main.PopbobHack;
-import popbobhack.mods.AutoDisconnect;
-import popbobhack.mods.AutoWhisper;
-import popbobhack.mods.BlockFinder;
-import popbobhack.mods.BookBot;
-import popbobhack.mods.CensorNaughtyWords;
-import popbobhack.mods.CustomBook;
-import popbobhack.mods.EnderShit;
-import popbobhack.mods.Fly;
-import popbobhack.mods.GamerFov;
-import popbobhack.mods.KillAura;
-import popbobhack.mods.LogOnSight;
-import popbobhack.mods.Macro;
-import popbobhack.mods.PlayerCoords;
-import popbobhack.mods.Recording;
-import popbobhack.mods.Scaffold;
-import popbobhack.mods.Spam;
-import popbobhack.mods.Teleport;
-import popbobhack.mods.Xray;
+import popbobhack.mods.*;
 
 public class ChatCommands {
 	
@@ -425,11 +410,40 @@ public class ChatCommands {
     	    	Scaffold.side = Integer.parseInt(var3);
     	    }
     	    
+    	    pattern = Pattern.compile(".calc ", Pattern.CASE_INSENSITIVE);
+    	    matcher = pattern.matcher(var3);
+    	    matchFound = matcher.find();
+    	    if(matchFound) {
+    	    	commandfound = true;
+    	    	var3 = var3.substring(6, var3.length());
+    	    	MathCalc.DoMath(var3);
+    	    }
+    	    
+    	    pattern = Pattern.compile(".math ", Pattern.CASE_INSENSITIVE);
+    	    matcher = pattern.matcher(var3);
+    	    matchFound = matcher.find();
+    	    if(matchFound) {
+    	    	commandfound = true;
+    	    	var3 = var3.substring(6, var3.length());
+    	    	MathCalc.DoMath(var3);
+    	    }
+    	    
+    	    pattern = Pattern.compile(".AutoReconnect delay ", Pattern.CASE_INSENSITIVE);
+    	    matcher = pattern.matcher(var3);
+    	    matchFound = matcher.find();
+    	    if(matchFound) {
+    	    	commandfound = true;
+    	    	var3 = var3.substring(21, var3.length());
+    	    	GuiDisconnected.reconnecttimerdelay = Integer.parseInt(var3);
+    	    	GuiDisconnected.reconnecttimer = GuiDisconnected.reconnecttimerdelay;
+    	    	RandomShit.onListUpdated();
+    	    }
+    	    
     	    if(var3.equalsIgnoreCase(".CensorWords print")) {
     	    	commandfound = true;
     	    	CensorNaughtyWords.CensorWordsPrint();
     	    }
-    	    
+
     	    if(var3.equalsIgnoreCase(".CensorWords Default")) {
     	    	commandfound = true;
  				   int i = 0;
@@ -490,10 +504,11 @@ public class ChatCommands {
  				   		+ "piss\r\n"
  				   		+ "poop\r\n"
  				   		+ "prick";
- 				       
+ 				       try {
  				       FileWriter writer = new FileWriter("/PopbobHack/CensorWordsList.txt");
  				       writer.write(Content);
- 				       writer.close();
+ 				       writer.close(); 
+ 				       }catch(Exception e)  {}
  				       CensorNaughtyWords.SetListToTxt();
     	    }
     	    pattern = Pattern.compile(".BlockFinder add ", Pattern.CASE_INSENSITIVE);
@@ -543,6 +558,15 @@ public class ChatCommands {
     	    if(var3.equalsIgnoreCase(".BlockFinder print")) {
     	    	commandfound = true;
     	    	BlockFinder.BlockFinderListPrint();
+    	    }
+    	    
+    	    pattern = Pattern.compile(".signdelay ", Pattern.CASE_INSENSITIVE);
+    	    matcher = pattern.matcher(var3);
+    	    matchFound = matcher.find();
+    	    if(matchFound) {
+    	    	commandfound = true;
+    	    	var3 = var3.substring(11, var3.length());
+    	    	GuiEditSign.delay = Integer.parseInt(var3);
     	    }
     	    
     	    pattern = Pattern.compile(".LogOnSight add ", Pattern.CASE_INSENSITIVE);
@@ -595,7 +619,7 @@ public class ChatCommands {
     	    	}
     	    	var3 = var3.substring(var3.indexOf(" ") + 1);
     	    	if(Modulepos != 69) {
-    	    	KeyBinds.KeyBindsList[Modulepos] = PopbobHack.getModules().get(Modulepos).getName() + ":"  + var3;
+    	    	KeyBinds.KeyBindsList[Modulepos+1] = PopbobHack.getModules().get(Modulepos).getName() + ":"  + var3;
     	    	} else {
     	    	String penis = "cockcockcockcockcockcockcockcockcockcockcockcockcockcockcockcockpenis";
     	    	penis = penis.substring(420, 1337);
@@ -716,9 +740,36 @@ public class ChatCommands {
     	    	RandomShit.onListUpdated();
     	    }
     	    
+    	    pattern = Pattern.compile(".DisconnectNoFall ", Pattern.CASE_INSENSITIVE);
+    	    matcher = pattern.matcher(var3);
+    	    matchFound = matcher.find();
+    	    if(matchFound) {
+    	    	commandfound = true;
+    	    	var3 = var3.substring(18, var3.length());
+    	    	DisconnectFall.falldistancedisconnect = Integer.parseInt(var3);
+    	    	RandomShit.onListUpdated();
+    	    }
+    	    
+    	    pattern = Pattern.compile(".SignBot ", Pattern.CASE_INSENSITIVE);
+    	    matcher = pattern.matcher(var3);
+    	    matchFound = matcher.find();
+    	    if(matchFound) {
+    	    	commandfound = true;
+    	    	var3 = var3.substring(9, var3.length());
+    	    	SignBot.file2 = var3;
+    	    	RandomShit.onListUpdated();
+    	    }
+    	    
     	    if(var3.equalsIgnoreCase(".Bookclear")) {
     	    	commandfound = true;
     	    	BookBot.i3 = 0;
+    	    	RandomShit.onListUpdated();
+    	    }
+    	    
+    	    if(var3.equalsIgnoreCase(".Signclear")) {
+    	    	commandfound = true;
+    	    	BookBot.i3 = 0;
+    	    	RandomShit.onListUpdated();
     	    }
     	    
     	    if(var3.equalsIgnoreCase(".help")) {
@@ -729,12 +780,12 @@ public class ChatCommands {
     	    }
     	    if(var3.equalsIgnoreCase(".Modules")) {
     	    	commandfound = true;
-    	    	Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> AntiFall, AutoArmor, AutoEat, AutoMine, AutoR, AutoSwim, AutoWalk, BlockFinder, CensorWords, ChestFinder, CustomBook, FastPlace, Fly, Freecam, FullBright, GamerFov, Glide, Jesus, KillAura, LogOnSight, LongMessages, Macro, NoFall, Recording, SafeWalk, Scaffold, Spam, Sprint, SuperJesus, Teleport, Tracers, Xray");
+    	    	Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> AntiFall, AutoArmor, AutoEat, AutoMine, AutoR, AutoSwim, AutoWalk, AutoWhisper, BlockFinder, CensorWords, ChestFinder, CustomBook, FastPlace, Fly, Freecam, FullBright, GamerFov, Glide, Jesus, KillAura, LogOnSight, LongMessages, Macro, NoClip, NoFall, Recording, SafeWalk, Scaffold, Spam, Sprint, SuperJesus, Teleport, Tracers, Xray");
     	    }
     	    
     	    if(var3.equalsIgnoreCase(".commands")) {
     	    	commandfound = true;
-    	    	Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> BookBot, Book copy, Book paste, Bookspam, Bind, Goto, Steal, Vclip");
+    	    	Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> AutoReconnect, BookBot, Book copy, Book paste, Bookspam, Bind, Goto, Math, Steal, Vclip");
     	    }
     	    
     	    
@@ -756,6 +807,8 @@ public class ChatCommands {
     	    			
     	    	}
     	    	
+    	    	
+    	    	
     	    	if(var3.equalsIgnoreCase("BookBot")) {
     	    		foundhelp = true;
     	    		Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> Syntax is .BookBot fileName. Converts a txt file into a minecraft book. If the txt file is longer than 50 minecraft pages it converts the rest of the txt file if you run the command again. If you do .BookClear it sets the contents it's converting to the original file.");
@@ -773,7 +826,7 @@ public class ChatCommands {
     	    	
     	    	if(var3.equalsIgnoreCase("Bookspam")) {
     	    		foundhelp = true;
-    	    		Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> the syntax is .Bookspam boolean string. If boolean is true it dabs otherwise your fat. The string fucks your mom. Trust me, you'll never use this so it doesnt matter if my explanation is lacking.");
+    	    		Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> fills a book with spam. Syntax is .Bookspam String Boolean. The string is what the book gets spammed with. boolean = false makes so it spams the string multiple times on the page otherwise it only writes it once.");
     	    	}
     	    	
     	    	if(var3.equalsIgnoreCase("Bind")) {
@@ -791,9 +844,19 @@ public class ChatCommands {
     	    		Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> syntax = .steal infMode boolean. Boolean should be true if you want to steal infs. Can only steal 9 infs at the time.");
     	    	}
     	    	
+    	    	if(var3.equalsIgnoreCase("math")) {
+    	    		foundhelp = true;
+    	    		Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> the syntax is .math mathThings. It only supports +, -, / and *. You can also use .calc which does the same thing.");
+    	    	}
+    	    	
     	    	if(var3.equalsIgnoreCase("vclip")) {
     	    		foundhelp = true;
     	    		Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> vclip = vertical clip. NCP patches this so I don't see why you care. I hope you understand this and stop caring.");
+    	    	}
+    	    	
+    	    	if(var3.equalsIgnoreCase("AutoReconnect")) {
+    	    		foundhelp = true;
+    	    		Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> syntax is .Autoreconnect delay NUMBER");
     	    	}
     	    	
     	    	if(!foundhelp) {
@@ -816,6 +879,7 @@ public class ChatCommands {
     	    
     	    
 		}catch(Exception e) {
+			e.printStackTrace();
 			Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> thats not how you do syntax try again");
 		}
 	} else {

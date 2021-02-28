@@ -16,7 +16,7 @@ public class CommandHelp {
 		//Xray
 	commandHelp.add("<popbob> do .xray add BLOCKID or BLOCKNAME to add a block to the xray list. Do .xray del BLOCKID or BLOCKNAME to remove a block from the xray list");
 		//Jesus
-	commandHelp.add("<popbob> walks on water, doesn't bypass");
+	commandHelp.add("<popbob> walks on water, doesnt work with sprint");
 		//Sprint
 	commandHelp.add("<popbob> sprints!");
 		//GamerFov
@@ -40,7 +40,7 @@ public class CommandHelp {
 		//KillAura
 	commandHelp.add("<popbob> this is shit don't use. do .KillAura delay NUMBER to change the hit delay");
 		//Scaffold
-	commandHelp.add("<popbob> scaffold moment. Only works in west direction idk why");
+	commandHelp.add("<popbob> scaffold moment.");
 		//Freecam
 	commandHelp.add("<popbob> makes your cam free");
 		//Spam
@@ -53,12 +53,12 @@ public class CommandHelp {
 	commandHelp.add("<popbob> does that shift block thing without shifting");
 		//AutoSwim
 	commandHelp.add("<popbob> swims for you");
-		//AutoReconnect
-	commandHelp.add("<popbob> lol xd");
+		//PlaceHolder
+	commandHelp.add("<popbob> its a place holder");
 		//LongMessages
 	commandHelp.add("<popbob> removes chat box limit and splits the message into multiple if it's too long (mc kicks you if you send messages longer than 100 characters)");
 		//NoWeather
-	commandHelp.add("<popbob> noweather is hardcoded in this client. This module does literally nothing");
+	commandHelp.add("<popbob> noweather is hardcoded in this client. This module is for if you want to pretend it isn't");
 		//CustomBook
 	commandHelp.add("<popbob> do .CustomAuthor PlayerName to epic prank people. Do .CustomTitle title to be lazy, server kicks you if its longer than 16 characters btw.");
 		//CensorWords
@@ -76,7 +76,7 @@ public class CommandHelp {
 		//SendCommands
 	commandHelp.add("<popbob> sends messages even if they have the . prefix. This is peak funny");
 		//AutoR
-	commandHelp.add("<popbob> automatically writes /r in the beggining of the message so you don't have to do shit");
+	commandHelp.add("<popbob> automatically writes /r in the beggining of messages");
 		//AntiFall
 	commandHelp.add("<popbob> stops you from falling by using magic");
 		//AutoWhisper
@@ -87,5 +87,15 @@ public class CommandHelp {
 	commandHelp.add("<popbob> enables noclip");
 		//BlockFinder
 	commandHelp.add("<popbob> Tells you where blocks you want to find are. Do .BlockFinder add blockName or blockID to add a block to the list of blocks you wanna find. Do .BlockFinder del blockName or blockID to remove a block from the list. Do .BlockFinder Print to print the list.");
+		//NoHurtCam
+	commandHelp.add("<popbob> removes the hurt cam");
+		//AntiKB
+	commandHelp.add("<popbob> removes knockback");
+		//BucketMLG
+	commandHelp.add("<popbob> this sucks you have to look down to use it this is an embrassment but i dont feel like fixing it because i dont care");
+		//DisconnectNoFall
+	commandHelp.add("<popbob> Disconnect right before you land after falling a certain distance. When you relog you won't take fall damage. Do .DisconnectNoFall NUMBER to set this number");
+		//SignBot
+	commandHelp.add("<popbob> todo: add tutorial on how to use this");
 	}
 }

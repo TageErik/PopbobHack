@@ -4,11 +4,12 @@ import org.lwjgl.input.Keyboard;
 
 import net.minecraft.src.Material;
 import popbobhack.main.Category;
+import popbobhack.main.PopbobHack;
 
 public class Glide extends Module{
 
 	public Glide() {
-		super("Glide", 0, Category.PLAYER);
+		super("Glide", 0, Category.MOVEMENT);
 		
 	}
 	public void onUpdate() {

@@ -1,5 +1,6 @@
 package popbobhack.mods;
 
+import net.minecraft.src.GuiDisconnected;
 import net.minecraft.src.Minecraft;
 import popbobhack.config.Config;
 import popbobhack.main.Category;
@@ -18,12 +19,8 @@ public class LogOnSight extends Module{
 	public void onUpdate() {
 		if(isToggled()) {
 				for(int i2 = 0; i2 < LOSListLength; i2++) {
-					try {
-					//System.out.println(mc.theWorld.getPlayerEntityByName(LOSList[i2]).posX);
+					GuiDisconnected.reconnectenabled = false;
 					mc.theWorld.sendQuittingDisconnectingPacket();
-					}catch(Exception e) {
-						
-					}
 				}
 		}
 	}

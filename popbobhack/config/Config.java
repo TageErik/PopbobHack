@@ -13,6 +13,7 @@ import popbobhack.main.PopbobHack;
 public class Config {	
 	public static int SetListToTxt(String[] List, int ListLength, String name) {
 		try {
+		   name.replaceAll("/", "\\\\");
 		   File file = new File(name);
 		   if(!file.exists()) {
 			   try {
@@ -23,15 +24,14 @@ public class Config {
 			   file.createNewFile();
 			   if(List == KeyBinds.KeyBindsList) {
 				   int i = 0;
-				   String Content = "";
+				   String Content = PopbobHack.ClientName + System.lineSeparator();
 			       while(i < PopbobHack.getModules().size()) {
 				    	 Content += PopbobHack.getModules().get(i).getName() + ":loser" + System.lineSeparator();
 				    	 i++;
 				       }
-				       
-				       FileWriter writer = new FileWriter(file);
-				       writer.write(Content);
-				       writer.close();
+			       FileWriter writer = new FileWriter(file);
+			       writer.write(Content);
+			       writer.close();
 			   }
 		   }
 	       String oldContent = "";
@@ -46,7 +46,7 @@ public class Config {
 	       ListLength = i;
 	       reader.close();
 		}catch(Exception e) {
-		}	
+		}
 		return ListLength;
 	}
 	

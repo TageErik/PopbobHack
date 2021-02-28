@@ -17,12 +17,11 @@ import net.minecraft.src.MovingObjectPosition;
 import net.minecraft.src.Vec3;
 import net.minecraft.src.World;
 import popbobhack.main.Category;
-import popbobhack.utils.NodeInfo;
 
 public class EnderShit extends Module{
 
 	public EnderShit() {
-		super("EnderShit", 0, Category.PLAYER);
+		super("EnderShit", 0, Category.MOVEMENT);
 		
 	}
 	protected Random rand;
@@ -72,11 +71,6 @@ public class EnderShit extends Module{
 	private double bestposX;
 	private double bestposY;
 	private double bestposZ;
-	public ArrayList<NodeInfo> Open = new ArrayList<NodeInfo>();
-	public ArrayList<NodeInfo> Closed = new ArrayList<NodeInfo>();
-	public NodeInfo cockhahafunnyvariablename;
-	public NodeInfo current;
-	public ArrayList<NodeInfo> Path = new ArrayList<NodeInfo>();
 	
 	public static int Destinationx = 0;
 	public static int Destinationz = 0;

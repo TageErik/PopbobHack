@@ -5,7 +5,7 @@ import popbobhack.main.Category;
 public class NoClip extends Module{
 
 	public NoClip() {
-		super("NoClip", 0, Category.PLAYER);
+		super("NoClip", 0, Category.MOVEMENT);
 		// TODO Auto-generated constructor stub
 	}
 

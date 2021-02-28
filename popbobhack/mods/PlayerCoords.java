@@ -33,7 +33,6 @@ public class PlayerCoords extends Module{
 			PlayerInfoString.clear();
 			for(int i = 0; i < Minecraft.getMinecraft().theWorld.playerEntities.size(); i++) {
 				PlayerInfo = Minecraft.getMinecraft().theWorld.playerEntities.get(i).toString();
-				
 				 
 				 Pattern pattern = Pattern.compile("EntityClientPlayerMP", Pattern.CASE_INSENSITIVE);
 				    Matcher matcher = pattern.matcher(PlayerInfo);
@@ -66,6 +65,7 @@ public class PlayerCoords extends Module{
 				}catch(Exception e) {}
 				
 				z = EpicPlayerInfo.substring(EpicPlayerInfo.indexOf('z')+2, EpicPlayerInfo.substring(EpicPlayerInfo.indexOf('z')).indexOf(".") + EpicPlayerInfo.indexOf('z'));
+				  
 				    	} catch(Exception e69) {}
 				    }
 				    

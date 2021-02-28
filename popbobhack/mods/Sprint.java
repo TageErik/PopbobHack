@@ -7,7 +7,7 @@ import popbobhack.main.Category;
 public class Sprint extends Module{
 
 	public Sprint() {
-		super("Sprint", 0, Category.PLAYER);
+		super("Sprint", 0, Category.MOVEMENT);
 		
 	}
 

@@ -68,6 +68,12 @@ public class Scaffold extends Module{
 					y = 3;
 					z = 0;
 				}
+				if(mc.thePlayer.posX > 0) {
+					x-=1;
+				}
+				if(mc.thePlayer.posZ < 0) {
+					z+=1;
+				}
 				if(scaffolddelaycount >= scaffolddelay) {
 				scaffoldPlace = true;
 				

@@ -11,7 +11,7 @@ import popbobhack.main.PopbobHack;
 public class Freecam extends Module{
 
 	public Freecam() {
-		super("Freecam", 0, Category.PLAYER);
+		super("Freecam", 0, Category.MOVEMENT);
 		// TODO Auto-generated constructor stub
 	}
 	

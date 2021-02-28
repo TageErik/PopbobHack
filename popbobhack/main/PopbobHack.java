@@ -66,36 +66,42 @@ public class PopbobHack {
 		AddMod(new AutoArmor());
 		AddMod(new SafeWalk());
 		AddMod(new AutoSwim());
-		AddMod(new AutoReconnect());
+		AddMod(new PlaceHolder());
 		AddMod(new LongMessages());
 		AddMod(new NoWeather());
 		AddMod(new CustomBook());
 		AddMod(new CensorNaughtyWords());
-		CensorNaughtyWords.SetListToTxt();
 		AddMod(new Glide());
 		//30
 		AddMod(new EnderShit());
 		AddMod(new LogOnSight());
-		LogOnSight.SetListToTxt();
-		SaveSettings.SetListToTxt();
-		KeyBinds.SetListToTxt();
 		PopbobHack.getModules().get(14).toggled = true;
 		AddMod(new Recording());
 		AddMod(new Macro());
 		AddMod(new SendCommands());
 		AddMod(new AutoR());
 		AddMod(new AntiFall());
-		Xray.SetListToTxt();
-		CustomBook.SetListToTxt();
 		AddMod(new AutoWhisper());
 		AddMod(new AutoDisconnect());
-		RandomShit.SetListToTxt();
 		AddMod(new NoClip());
 		//40
 		AddMod(new BlockFinder());
+		AddMod(new NoHurtCam());
+		AddMod(new AntiKB());
+		AddMod(new BucketMLG());
+		AddMod(new DisconnectFall());
+		AddMod(new SignBot());
+		
+		CustomBook.SetListToTxt();
+		RandomShit.SetListToTxt();
+		CensorNaughtyWords.SetListToTxt();
 		BlockFinder.SetListToTxt();
+		Xray.SetListToTxt();
+		LogOnSight.SetListToTxt();
+		KeyBinds.SetListToTxt();
+		SaveSettings.SetListToTxt();
 	}
-	public static String ClientName = "PopbobHack 1.6.4 V1.10";
+	public static String ClientName = "PopbobHack 1.6.4 V1.1";
 	public static String ShadowBan = "MinistroMinhoca";
 	
 	public static void AddMod(Module m) {
@@ -130,7 +136,7 @@ public class PopbobHack {
 	
 	public static void onKeyPressed(int k) {
 		for(Module m: mods) {
-			for(int i = 0; i < KeyBinds.KeyBindsListLength; i++) {
+			for(int i = 1; i < KeyBinds.KeyBindsListLength; i++) {
 				if(m.getName().equalsIgnoreCase(KeyBinds.KeyBindsList[i].substring(0, KeyBinds.KeyBindsList[i].indexOf(":")))) {
 					m.setKey(Keyboard.getKeyIndex((KeyBinds.KeyBindsList[i].substring(KeyBinds.KeyBindsList[i].indexOf(":") + 1)).toUpperCase()));
 				}

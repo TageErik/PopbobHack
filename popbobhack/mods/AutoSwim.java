@@ -5,7 +5,7 @@ import popbobhack.main.Category;
 public class AutoSwim extends Module{
 
 	public AutoSwim() {
-		super("AutoSwim", 0, Category.PLAYER);
+		super("AutoSwim", 0, Category.MOVEMENT);
 		
 	}
 	public static boolean popbob = false;
