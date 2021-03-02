@@ -1,7 +1,9 @@
 # PopbobHack
 Minecraft Utility Mod 1.6.4
 
+
 How to install:
+
 
 Step 1. Install multimc
 
@@ -19,6 +21,8 @@ Step 7. select PopbobHack.jar
 
 Type .help in chat to get help
 
+
+
 How to Install with MCP:
 
 Step 1: Download MCP v8.11
@@ -34,6 +38,7 @@ Step 5: run reobfuscate.bat
 Step 6: paste the files in mcp/reobf into a 1.6.4 jar
 
 Step 7: refer to How to Install with Jar
+
 
 
 How to check for backdoors in src files:
