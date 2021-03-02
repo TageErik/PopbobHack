@@ -55,11 +55,11 @@ Step 5: run recompile.bat
 
 Step 6: run reobfuscate.bat
 
-Step 7: The names of the class files in are the obfuscated names of all the files that have been edited. Use the obfuscation mappings in mcp/conf/client.srg to find out what the deobfuscated names of the files are.
+Step 7: The names of the class files in mcp/reobf are the obfuscated names of all the files that have been edited. Use the obfuscation mappings in mcp/conf/client.srg to find out what the deobfuscated names of the files are.
 
-Step 8: setup mcp with popbobhack in the backup I actually don't know how to do this
+Step 8: setup mcp with popbobhack in the backup. I actually don't know how to do this but it's probably easy
 
-Step 9: Open mcp in some cool editor you like
+Step 9: Open popbobhack mcp in some cool editor you like
 
 Step 10: Download normal mcp and decompile it and open it
 
