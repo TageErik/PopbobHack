@@ -63,6 +63,6 @@ Step 9: Open popbobhack mcp in some cool editor you like
 
 Step 10: Download normal mcp and decompile it and open it
 
-Step 11: Use text difference checker to see which parts I added or removed in the files that were edited.
+Step 11: Use a text difference checker to see which parts I added or removed in the files that were edited.
 
 Step 12: blame obama if you fail at something
