@@ -5,19 +5,19 @@ Minecraft Utility Mod 1.6.4
 How to install:
 
 
-Step 1. Install multimc
+Step 1: Install multimc
 
-Step 2. Change language to Swedish
+Step 2: Change language to Swedish
 
-Step 3. press "lägg till instans"
+Step 3: press "lägg till instans"
 
-Step 4. create a new instance of 1.6.4 and press ok
+Step 4: create a new instance of 1.6.4 and press ok
 
-Step 5. press "ändra instans"
+Step 5: press "ändra instans"
 
-Step 6. press "Byt Minecraft.jar"
+Step 6: press "Byt Minecraft.jar"
 
-Step 7. select PopbobHack.jar
+Step 7: select PopbobHack.jar
 
 Type .help in chat to get help
 
