@@ -469,6 +469,9 @@ public void EpicShitUpdate() {
     this.motionZ *= (double)var18;
     this.motionY -= (double)var19;
     this.setPosition(this.posX, this.posY, this.posZ);
+    if(posY < 0) {
+    	setDead();
+    }
 	}
     //mc.thePlayer.addChatMessage("x : " + String.valueOf(posX) + " y : " + String.valueOf(posY) + " z : " + String.valueOf(posZ));
 }

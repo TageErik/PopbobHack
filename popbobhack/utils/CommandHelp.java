@@ -53,8 +53,8 @@ public class CommandHelp {
 	commandHelp.add("<popbob> does that shift block thing without shifting");
 		//AutoSwim
 	commandHelp.add("<popbob> swims for you");
-		//PlaceHolder
-	commandHelp.add("<popbob> its a place holder");
+		//Ascend
+	commandHelp.add("<popbob> it just vclips a bunch of times");
 		//LongMessages
 	commandHelp.add("<popbob> removes chat box limit and splits the message into multiple if it's too long (mc kicks you if you send messages longer than 100 characters)");
 		//NoWeather
@@ -89,6 +89,8 @@ public class CommandHelp {
 	commandHelp.add("<popbob> Tells you where blocks you want to find are. Do .BlockFinder add blockName or blockID to add a block to the list of blocks you wanna find. Do .BlockFinder del blockName or blockID to remove a block from the list. Do .BlockFinder Print to print the list.");
 		//NoHurtCam
 	commandHelp.add("<popbob> removes the hurt cam");
+		//Glide2
+	commandHelp.add("<popbob> glides but differently");
 		//AntiKB
 	commandHelp.add("<popbob> removes knockback");
 		//BucketMLG
@@ -97,5 +99,9 @@ public class CommandHelp {
 	commandHelp.add("<popbob> Disconnect right before you land after falling a certain distance. When you relog you won't take fall damage. Do .DisconnectNoFall NUMBER to set this number");
 		//SignBot
 	commandHelp.add("<popbob> todo: add tutorial on how to use this");
+		//SoundLocator
+	commandHelp.add("<popbob> it's thunderhack");
+		//AutoSign
+	commandHelp.add("<popbob> it autowrites signs press the autosign button to choose the text of the signs");
 	}
 }

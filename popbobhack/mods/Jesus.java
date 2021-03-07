@@ -22,9 +22,12 @@ public class Jesus extends Module{
 	
 	public void onUpdate() {
 		if(isToggled()) {
-		
-		mc.gameSettings.keyBindJump.pressed = true;
-		
+		if(mc.theWorld.getBlockId((int)mc.thePlayer.posX, (int)mc.thePlayer.posY - 2, (int)mc.thePlayer.posZ) == 9) {
+			mc.thePlayer.setSprinting(false);
+			mc.gameSettings.keyBindJump.pressed = true;
+		} else {
+			mc.gameSettings.keyBindJump.pressed = Keyboard.isKeyDown(mc.gameSettings.keyBindJump.keyCode);
+		}
 		}
 	}
 

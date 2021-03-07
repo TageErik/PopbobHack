@@ -66,7 +66,7 @@ public class PopbobHack {
 		AddMod(new AutoArmor());
 		AddMod(new SafeWalk());
 		AddMod(new AutoSwim());
-		AddMod(new PlaceHolder());
+		AddMod(new Ascend());
 		AddMod(new LongMessages());
 		AddMod(new NoWeather());
 		AddMod(new CustomBook());
@@ -87,10 +87,13 @@ public class PopbobHack {
 		//40
 		AddMod(new BlockFinder());
 		AddMod(new NoHurtCam());
+		AddMod(new Glide2());
 		AddMod(new AntiKB());
 		AddMod(new BucketMLG());
 		AddMod(new DisconnectFall());
 		AddMod(new SignBot());
+		AddMod(new SoundLocator());
+		AddMod(new AutoSign());
 		
 		CustomBook.SetListToTxt();
 		RandomShit.SetListToTxt();
@@ -100,6 +103,7 @@ public class PopbobHack {
 		LogOnSight.SetListToTxt();
 		KeyBinds.SetListToTxt();
 		SaveSettings.SetListToTxt();
+		AutoSign.SetListToTxt();
 	}
 	public static String ClientName = "PopbobHack 1.6.4 V1.1";
 	public static String ShadowBan = "MinistroMinhoca";

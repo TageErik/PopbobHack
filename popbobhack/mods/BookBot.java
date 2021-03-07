@@ -67,6 +67,7 @@ public class BookBot {
 	    	i3 = FileText.length() + 1; 
 	    	
 	    	}
+	    	
 	    	if(var3 != null) {
 	    	Minecraft.getMinecraft().thePlayer.getHeldItem().getTagCompound().getTagList("pages").appendTag(new NBTTagString("" + (bookTotalPages + 1), var3));
 	    	bookTotalPages++;

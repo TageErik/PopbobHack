@@ -14,6 +14,9 @@ public class Fly extends Module{
 		super("Fly", 0,Category.MOVEMENT);
 	}
    public void onDisable() {
+	   if(!PopbobHack.getModules().get(42).isToggled()) {
+		   mc.thePlayer.capabilities.isFlying = false;
+	   }
 	   super.onDisable();
    }
 	

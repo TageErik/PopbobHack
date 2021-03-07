@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.regex.Pattern;
 
 import net.minecraft.src.Minecraft;
 import popbobhack.main.PopbobHack;
@@ -13,7 +14,9 @@ import popbobhack.main.PopbobHack;
 public class Config {	
 	public static int SetListToTxt(String[] List, int ListLength, String name) {
 		try {
-		   name.replaceAll("/", "\\\\");
+		   String home = System.getProperty("user.home");
+		   name = home + name;
+		   name.replaceAll("/", Pattern.quote(File.separator));
 		   File file = new File(name);
 		   if(!file.exists()) {
 			   try {
@@ -46,6 +49,7 @@ public class Config {
 	       ListLength = i;
 	       reader.close();
 		}catch(Exception e) {
+			e.printStackTrace();
 		}
 		return ListLength;
 	}
@@ -54,6 +58,9 @@ public class Config {
 	
 	public static void onListUpdated(String[] List, int ListLength, String name) {
 			try {
+			   String home = System.getProperty("user.home");
+			   name = home + name;
+			   name.replaceAll("/", Pattern.quote(File.separator));
 		       File file = new File(name);
 		       String Content = "";
 		       BufferedReader reader = new BufferedReader(new FileReader(file));

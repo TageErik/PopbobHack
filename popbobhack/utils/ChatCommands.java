@@ -372,6 +372,15 @@ public class ChatCommands {
     	    	RandomShit.onListUpdated();
     	    }
     	    
+    	    pattern = Pattern.compile(".Ascend ", Pattern.CASE_INSENSITIVE);
+    	    matcher = pattern.matcher(var3);
+    	    matchFound = matcher.find();
+    	    if(matchFound) {
+    	    	commandfound = true;
+    	    	var3 = var3.substring(8, var3.length());
+    	    	Ascend.AscendNumber = Integer.parseInt(var3);
+    	    }
+    	    
     	    pattern = Pattern.compile(".CensorWords add ", Pattern.CASE_INSENSITIVE);
     	    matcher = pattern.matcher(var3);
     	    matchFound = matcher.find();

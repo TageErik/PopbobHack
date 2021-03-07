@@ -13,6 +13,7 @@ public class KeyBinds {
 	
 	public static void SetListToTxt() {
 		KeyBindsListLength = Config.SetListToTxt(KeyBindsList, KeyBindsListLength, "/PopbobHack/KeyBinds.txt");
+		try {
 		if(!KeyBindsList[0].equals(PopbobHack.ClientName)) {
 			if(!KeyBindsList[0].contains("PopbobHack")) {
 			File f = new File("/PopbobHack/KeyBinds.txt");
@@ -29,6 +30,7 @@ public class KeyBinds {
 			onListUpdated();
 			}
 		}
+		}catch(Exception e) {}
 	}
 	public static void onListUpdated() {
 		Config.onListUpdated(KeyBindsList, KeyBindsListLength, "/PopbobHack/KeyBinds.txt");
