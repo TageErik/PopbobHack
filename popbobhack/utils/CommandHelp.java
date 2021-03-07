@@ -99,8 +99,8 @@ public class CommandHelp {
 	commandHelp.add("<popbob> Disconnect right before you land after falling a certain distance. When you relog you won't take fall damage. Do .DisconnectNoFall NUMBER to set this number");
 		//SignBot
 	commandHelp.add("<popbob> todo: add tutorial on how to use this");
-		//SoundLocator
-	commandHelp.add("<popbob> it's thunderhack");
+		//PlaceHolder
+	commandHelp.add("<popbob> its a placeholder");
 		//AutoSign
 	commandHelp.add("<popbob> it autowrites signs press the autosign button to choose the text of the signs");
 	}

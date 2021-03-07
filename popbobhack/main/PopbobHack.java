@@ -92,7 +92,7 @@ public class PopbobHack {
 		AddMod(new BucketMLG());
 		AddMod(new DisconnectFall());
 		AddMod(new SignBot());
-		AddMod(new SoundLocator());
+		AddMod(new PlaceHolder());
 		AddMod(new AutoSign());
 		
 		CustomBook.SetListToTxt();
@@ -105,7 +105,7 @@ public class PopbobHack {
 		SaveSettings.SetListToTxt();
 		AutoSign.SetListToTxt();
 	}
-	public static String ClientName = "PopbobHack 1.6.4 V1.1";
+	public static String ClientName = "PopbobHack 1.6.4 V1.2";
 	public static String ShadowBan = "MinistroMinhoca";
 	
 	public static void AddMod(Module m) {
