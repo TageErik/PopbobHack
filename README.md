@@ -39,6 +39,8 @@ Step 6: paste the files in mcp/reobf into a 1.6.4 jar
 
 Step 7: refer to How to Install with Jar
 
+Btw in latest release i did an oopise mcp Ready is actually mcp/src/minecraft/net/minecraft instead of mcp/src/minecraft i hope you have high enough iq to understand what i mean because i dont feel like explaining in any mroe detail
+
 
 
 How to check for backdoors in src files:
