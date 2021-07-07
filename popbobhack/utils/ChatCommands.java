@@ -26,8 +26,12 @@ import net.minecraft.src.NBTTagList;
 import net.minecraft.src.NBTTagString;
 import net.minecraft.src.Packet;
 import net.minecraft.src.Packet250CustomPayload;
+import net.minecraft.src.Timer;
 import popbobhack.config.KeyBinds;
 import popbobhack.config.RandomShit;
+import popbobhack.config.SaveSettings;
+import popbobhack.config.Shortcuts;
+import popbobhack.config.Waypoint;
 import popbobhack.main.PopbobHack;
 import popbobhack.mods.*;
 
@@ -41,11 +45,13 @@ public class ChatCommands {
 	public static int autotittimer = 0;
 	public static boolean autotitnow = false;
 	public static void sendChatmsgs(String var3) {
+    Minecraft mc = Minecraft.getMinecraft();
+	Recording.chatMessageBeingSent = var3;
 	if(var3.startsWith(".")) {
 		try {
 		boolean commandfound = false;
 		if(PopbobHack.getModules().get(34).isToggled()) {
-			Minecraft.getMinecraft().thePlayer.sendChatMessage(var3);
+			mc.thePlayer.sendChatMessage(var3);
 		}
 		
 		Pattern pattern = Pattern.compile(".Recording", Pattern.CASE_INSENSITIVE);
@@ -54,6 +60,7 @@ public class ChatCommands {
 	    if(matchFound) {
 	      commandfound = true;
 	      var3 = var3.substring(11, var3.length());
+	      Recording.chatMessageBeingSent = "null";
 	      Recording.RecordingName = var3;
 	      PopbobHack.getModules().get(32).toggle();
 	      Recording.SetListToTxt();
@@ -67,6 +74,8 @@ public class ChatCommands {
 		      Macro.MacroName = var3;
 		      Recording.RecordingName = var3;
 		      Macro.first = true;
+		      Macro.startYaw = mc.thePlayer.rotationYaw;
+		      Macro.startPitch = mc.thePlayer.rotationPitch;
 		      PopbobHack.getModules().get(33).toggle();
 		      Recording.SetListToTxt();
 		    }  else {	
@@ -119,14 +128,14 @@ public class ChatCommands {
           	    	var3toint = NameToId.NameToIdFunc(var3);
           	      }
     	      try {
-    	      Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> " + Block.blocksList[var3toint].getLocalizedName() + " was added to Xray!");
+    	      mc.thePlayer.addChatMessage("<popbob> " + Block.blocksList[var3toint].getLocalizedName() + " was added to Xray!");
     	      }catch(Exception e) {
     	    	  int var3toint1 = 0;
         	      try {
               	       var3toint1 = Integer.parseInt(var3);
-              	     Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> hello I am the infamous griefer popbob and I've come to inform you that \"" + WordUtils.capitalizeFully(var3) + "\" is in fact not a valid block id and that you are mentally retarded");	
+              	     mc.thePlayer.addChatMessage("<popbob> " + WordUtils.capitalizeFully(var3) + " is not a real block id and im tired of pretending it is");	
               	      }catch(Exception e1) {
-              	    	Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> hello I am the infamous griefer popbob and I've come to inform you that \"" + WordUtils.capitalizeFully(var3) + "\" is in fact not a block and that you are mentally retarded");	
+              	    	mc.thePlayer.addChatMessage("<popbob> " + WordUtils.capitalizeFully(var3) + "is not a real block and im tired of pretending it is");	
               	      }	
     	    	    }
     	     if(!Xray.xrayIds.contains(var3toint)) { 
@@ -134,7 +143,7 @@ public class ChatCommands {
     	     }
     	      if(PopbobHack.getModules().get(4).isToggled()) {
     	    	  XrayUtils.initXRayBlocks();
-    	    	  Minecraft.getMinecraft().renderGlobal.loadRenderers();  
+    	    	  mc.renderGlobal.loadRenderers();  
     	      }
     	      Xray.onListUpdated();
     	    }
@@ -151,15 +160,15 @@ public class ChatCommands {
         	    	var3toint = NameToId.NameToIdFunc(var3);
         	      }
   	    try { 
-  	    Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> " + Block.blocksList[var3toint].getLocalizedName() + " was removed from Xray!");
+  	    mc.thePlayer.addChatMessage("<popbob> " + Block.blocksList[var3toint].getLocalizedName() + " was removed from Xray!");
   	    }catch(Exception e) {
   	    	int var3toint1 = 0;
-    	      try {
-          	       var3toint1 = Integer.parseInt(var3);
-          	     Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> hello I am the infamous griefer popbob and I've come to inform you that \"" + WordUtils.capitalizeFully(var3) + "\" is in fact not a valid block id and that you are mentally retarded");	
-          	      }catch(Exception e1) {
-          	    	Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> hello I am the infamous griefer popbob and I've come to inform you that \"" + WordUtils.capitalizeFully(var3) + "\" is in fact not a block and that you are mentally retarded");	
-          	      }	
+  	    	try {
+       	       var3toint1 = Integer.parseInt(var3);
+       	     mc.thePlayer.addChatMessage("<popbob> " + WordUtils.capitalizeFully(var3) + " is not a real block id and im tired of pretending it is");	
+       	      }catch(Exception e1) {
+       	    	mc.thePlayer.addChatMessage("<popbob> " + WordUtils.capitalizeFully(var3) + "is not a real block and im tired of pretending it is");	
+       	      }		
   	    }
   	    
   	    	if(Xray.xrayIds.contains(var3toint)) { 
@@ -168,7 +177,7 @@ public class ChatCommands {
   	    
       	      if(PopbobHack.getModules().get(4).isToggled()) {
       	    	  XrayUtils.initXRayBlocks();
-      	    	  Minecraft.getMinecraft().renderGlobal.loadRenderers();  
+      	    	  mc.renderGlobal.loadRenderers();  
       	      }
       	    Xray.onListUpdated();
     	    }
@@ -266,24 +275,32 @@ public class ChatCommands {
     	    if(matchFound) {
     	    	commandfound = true;
     	    	var3 = var3.substring(10, var3.length());
-    	    	Minecraft.getMinecraft().thePlayer.rotationYaw += Float.parseFloat(var3);
+    	    	mc.thePlayer.rotationYaw += Float.parseFloat(var3);
     	    	
     	    }
-    	    pattern = Pattern.compile(".pp goto ", Pattern.CASE_INSENSITIVE);
+    	    pattern = Pattern.compile(".Waypoint Endershitter ", Pattern.CASE_INSENSITIVE);
     	    matcher = pattern.matcher(var3);
     	    matchFound = matcher.find();
     	    if(matchFound) {
     	    	commandfound = true;
-    	    	var3 = var3.substring(9, var3.length());
-    	    	//Minecraft.getMinecraft().thePlayer.addChatMessage(var3);
+    	    	var3 = var3.substring(23, var3.length());
+    	    	WaypointGoto.Waypoint(var3);
+    	    } else {
+    	    pattern = Pattern.compile(".EnderShitter goto ", Pattern.CASE_INSENSITIVE);
+    	    matcher = pattern.matcher(var3);
+    	    matchFound = matcher.find();
+    	    if(matchFound) {
+    	    	commandfound = true;
+    	    	var3 = var3.substring(19, var3.length());
+    	    	//mc.thePlayer.addChatMessage(var3);
     	    	
         	    	for(int i = 0; i < var3.length(); i++) {
         	    		String var4 = var3.substring(i,i+1);
         	    		if(var4.contains(" ")) {
         	    			String var5 = var3.substring(0, i);
         	    			String var6 = var3.substring(i+1);
-        	    			EnderShit.Destinationx = Integer.parseInt(var5);
-        	    			EnderShit.Destinationz = Integer.parseInt(var6);
+        	    			EnderShitter.Destinationx = Integer.parseInt(var5);
+        	    			EnderShitter.Destinationz = Integer.parseInt(var6);
         	    		}
         	    	}
 
@@ -311,7 +328,7 @@ public class ChatCommands {
 	        	    }
 	    	    }
     	    }
-    	   
+    	    }
     	    
     	    
     	    pattern = Pattern.compile(".CustomAuthor ", Pattern.CASE_INSENSITIVE);
@@ -359,7 +376,7 @@ public class ChatCommands {
     	    	commandfound = true;
     	    	var3 = var3.substring(7, var3.length());
     	    	int distance = Integer.parseInt(var3);
-    	    	Minecraft.getMinecraft().thePlayer.setPositionAndUpdate(Minecraft.getMinecraft().thePlayer.posX, Minecraft.getMinecraft().thePlayer.posY + distance, Minecraft.getMinecraft().thePlayer.posZ);
+    	    	mc.thePlayer.setPositionAndUpdate(mc.thePlayer.posX, mc.thePlayer.posY + distance, mc.thePlayer.posZ);
     	    }
     	    
     	    pattern = Pattern.compile(".steal infMode ", Pattern.CASE_INSENSITIVE);
@@ -428,6 +445,15 @@ public class ChatCommands {
     	    	MathCalc.DoMath(var3);
     	    }
     	    
+    	    pattern = Pattern.compile(".Endershitter adder ", Pattern.CASE_INSENSITIVE);
+    	    matcher = pattern.matcher(var3);
+    	    matchFound = matcher.find();
+    	    if(matchFound) {
+    	    	commandfound = true;
+    	    	var3 = var3.substring(20, var3.length());
+    	    	EnderShitter.Adder = Integer.parseInt(var3);
+    	    }
+    	    
     	    pattern = Pattern.compile(".math ", Pattern.CASE_INSENSITIVE);
     	    matcher = pattern.matcher(var3);
     	    matchFound = matcher.find();
@@ -435,6 +461,15 @@ public class ChatCommands {
     	    	commandfound = true;
     	    	var3 = var3.substring(6, var3.length());
     	    	MathCalc.DoMath(var3);
+    	    }
+    	    
+    	    pattern = Pattern.compile(".Timer ", Pattern.CASE_INSENSITIVE);
+    	    matcher = pattern.matcher(var3);
+    	    matchFound = matcher.find();
+    	    if(matchFound) {
+    	    	commandfound = true;
+    	    	var3 = var3.substring(7, var3.length());
+    	    	Timer.CustomTimer = Float.parseFloat(var3);
     	    }
     	    
     	    pattern = Pattern.compile(".AutoReconnect delay ", Pattern.CASE_INSENSITIVE);
@@ -520,6 +555,8 @@ public class ChatCommands {
  				       }catch(Exception e)  {}
  				       CensorNaughtyWords.SetListToTxt();
     	    }
+    	    
+    	    
     	    pattern = Pattern.compile(".BlockFinder add ", Pattern.CASE_INSENSITIVE);
     	    matcher = pattern.matcher(var3);
     	    matchFound = matcher.find();
@@ -569,6 +606,57 @@ public class ChatCommands {
     	    	BlockFinder.BlockFinderListPrint();
     	    }
     	    
+    	    pattern = Pattern.compile(".EntityFinder add ", Pattern.CASE_INSENSITIVE);
+    	    matcher = pattern.matcher(var3);
+    	    matchFound = matcher.find();
+    	    if(matchFound) {
+    	    	commandfound = true;
+    	    	var3 = var3.substring(18, var3.length());
+    	    	EntityFinder.EntityFinderList[EntityFinder.EntityFinderListLength] = var3;
+    	    	EntityFinder.EntityFinderListLength +=1;
+    	    	EntityFinder.onListUpdated();
+    	    }
+    	    
+    	    pattern = Pattern.compile(".Hold ", Pattern.CASE_INSENSITIVE);
+    	    matcher = pattern.matcher(var3);
+    	    matchFound = matcher.find();
+    	    if(matchFound) {
+    	    	commandfound = true;
+    	    	var3 = var3.substring(6, var3.length());
+    	    	if(var3.equalsIgnoreCase("this") && mc.thePlayer.inventory.getCurrentItem() != null) {
+    	    		var3 = mc.thePlayer.inventory.getCurrentItem().getDisplayName();
+    	    	}
+    	    	try {
+    	    		Hold.ItemHoldID = Integer.parseInt(var3);
+    	    	}catch(Exception e) {
+    	    		Hold.ItemHoldID = NameToId.NameToIdFunc(var3);
+    	    	}
+    	    }
+    	    
+    	    
+    	    pattern = Pattern.compile(".EntityFinder del ", Pattern.CASE_INSENSITIVE);
+    	    matcher = pattern.matcher(var3);
+    	    matchFound = matcher.find();
+    	    if(matchFound) {
+    	    	commandfound = true;
+    	    	var3 = var3.substring(18, var3.length());
+    	    	try {
+    	    	int hejsannoob = EntityFinder.FindLocationOfWord(var3);
+    	    	if(hejsannoob < 1337) {
+    	    	EntityFinder.onRemoveElement(hejsannoob);
+    	    	EntityFinder.EntityFinderListLength -=1;
+    	    	EntityFinder.onListUpdated();
+    	    	}
+    	    	}catch(Exception e) {
+    	    		
+    	    	}
+    	    }
+    	    
+    	    if(var3.equalsIgnoreCase(".EntityFinder print")) {
+    	    	commandfound = true;
+    	    	EntityFinder.EntityFinderListPrint();
+    	    }
+    	    
     	    pattern = Pattern.compile(".signdelay ", Pattern.CASE_INSENSITIVE);
     	    matcher = pattern.matcher(var3);
     	    matchFound = matcher.find();
@@ -576,6 +664,24 @@ public class ChatCommands {
     	    	commandfound = true;
     	    	var3 = var3.substring(11, var3.length());
     	    	GuiEditSign.delay = Integer.parseInt(var3);
+    	    }
+    	    
+    	    pattern = Pattern.compile(".yaw ", Pattern.CASE_INSENSITIVE);
+    	    matcher = pattern.matcher(var3);
+    	    matchFound = matcher.find();
+    	    if(matchFound) {
+    	    	commandfound = true;
+    	    	var3 = var3.substring(5, var3.length());
+    	    	mc.thePlayer.rotationYaw = Float.parseFloat(var3);
+    	    }
+    	    
+    	    pattern = Pattern.compile(".Pitch ", Pattern.CASE_INSENSITIVE);
+    	    matcher = pattern.matcher(var3);
+    	    matchFound = matcher.find();
+    	    if(matchFound) {
+    	    	commandfound = true;
+    	    	var3 = var3.substring(7, var3.length());
+    	    	mc.thePlayer.rotationPitch = Float.parseFloat(var3);
     	    }
     	    
     	    pattern = Pattern.compile(".LogOnSight add ", Pattern.CASE_INSENSITIVE);
@@ -644,9 +750,11 @@ public class ChatCommands {
     	    
     	    
     	    
+    	    
+    	    
     	    if(var3.equalsIgnoreCase(".round")) {
     	    	commandfound = true;
-    	    	Minecraft.getMinecraft().thePlayer.rotationYaw = (float) (Math.floor(Minecraft.getMinecraft().thePlayer.rotationYaw/10) * 10);
+    	    	mc.thePlayer.rotationYaw = (float) (Math.floor(mc.thePlayer.rotationYaw/10) * 10);
     	    }
     	    
     	    pattern = Pattern.compile(".bookspam pages ", Pattern.CASE_INSENSITIVE);
@@ -658,22 +766,38 @@ public class ChatCommands {
     	    	pagesSpam = Integer.parseInt(var3);
     	    }
     	    
+    	    pattern = Pattern.compile(".recItem ", Pattern.CASE_INSENSITIVE);
+    	    matcher = pattern.matcher(var3);
+    	    matchFound = matcher.find();
+    	    if(matchFound) {
+    	    	commandfound = true;
+    	    	var3 = var3.substring(9, var3.length());
+    	    	if(var3 == "false") {
+    	    		Recording.UseItemName = false;
+    	    	} else {
+    	    	Recording.ItemSlot = "#" + var3;
+    	    	Recording.UseItemName = true;
+    	    	}
+    	    }
+    	    
     	    pattern = Pattern.compile(".bookspam true ", Pattern.CASE_INSENSITIVE);
     	    matcher = pattern.matcher(var3);
     	    matchFound = matcher.find();
     	    if(matchFound) {
     	    	commandfound = true;
     	    	var3 = var3.substring(15, var3.length());
-    	    	while(Minecraft.getMinecraft().thePlayer.getHeldItem().getTagCompound().getTagList("pages").tagCount() > 0) {
-    	    		Minecraft.getMinecraft().thePlayer.getHeldItem().getTagCompound().getTagList("pages").removeTag(0);
+    	    	while(mc.thePlayer.getHeldItem().getTagCompound().getTagList("pages").tagCount() > 0) {
+    	    		mc.thePlayer.getHeldItem().getTagCompound().getTagList("pages").removeTag(0);
     	    	}
     	    	int bookTotalPages = 0;
-    	    			//Minecraft.getMinecraft().thePlayer.getHeldItem().getTagCompound().getTagList("pages").tagCount();
+    	    			//mc.thePlayer.getHeldItem().getTagCompound().getTagList("pages").tagCount();
     	    	for(int i = 0; i < pagesSpam; i++) {
-    	    	Minecraft.getMinecraft().thePlayer.getHeldItem().getTagCompound().getTagList("pages").appendTag(new NBTTagString("" + (bookTotalPages + 1), var3));
+    	    	mc.thePlayer.getHeldItem().getTagCompound().getTagList("pages").appendTag(new NBTTagString("" + (bookTotalPages + 1), var3));
     	    	bookTotalPages++;
     	    	}
     	    }
+    	    
+    	    
     	    
     	    pattern = Pattern.compile(".bookspam false ", Pattern.CASE_INSENSITIVE);
     	    matcher = pattern.matcher(var3);
@@ -688,13 +812,13 @@ public class ChatCommands {
         	    		var4 += var3;
         	    	}
         	    	var3 = var4.substring(1,(int) (Math.floor(length/var3.length()) * var3.length()));
-        	    	while(Minecraft.getMinecraft().thePlayer.getHeldItem().getTagCompound().getTagList("pages").tagCount() > 0) {
-        	    		Minecraft.getMinecraft().thePlayer.getHeldItem().getTagCompound().getTagList("pages").removeTag(0);
+        	    	while(mc.thePlayer.getHeldItem().getTagCompound().getTagList("pages").tagCount() > 0) {
+        	    		mc.thePlayer.getHeldItem().getTagCompound().getTagList("pages").removeTag(0);
         	    	}
         	    	int bookTotalPages = 0;
-        	    			//Minecraft.getMinecraft().thePlayer.getHeldItem().getTagCompound().getTagList("pages").tagCount();
+        	    			//mc.thePlayer.getHeldItem().getTagCompound().getTagList("pages").tagCount();
         	    	for(int i = 0; i < pagesSpam; i++) {
-        	    	Minecraft.getMinecraft().thePlayer.getHeldItem().getTagCompound().getTagList("pages").appendTag(new NBTTagString("" + (bookTotalPages + 1), var3));
+        	    	mc.thePlayer.getHeldItem().getTagCompound().getTagList("pages").appendTag(new NBTTagString("" + (bookTotalPages + 1), var3));
         	    	bookTotalPages++;
         	    	}
         	    }
@@ -705,14 +829,30 @@ public class ChatCommands {
     	    	bookPagesCopy = (NBTTagList) GuiScreenBook.bookPagesCopy.copy();
     	    	//System.out.println(bookPagesCopy);
     	    }
+			
+			if(var3.equalsIgnoreCase(".reload")) {
+    	    	commandfound = true;
+    			CustomBook.SetListToTxt();
+    			RandomShit.SetListToTxt();
+    			CensorNaughtyWords.SetListToTxt();
+    			BlockFinder.SetListToTxt();
+    			EntityFinder.SetListToTxt();
+    			Xray.SetListToTxt();
+    			LogOnSight.SetListToTxt();
+    			KeyBinds.SetListToTxt();
+    			SaveSettings.SetListToTxt();
+    			AutoSign.SetListToTxt();
+    			Waypoint.SetListToTxt();
+    			Shortcuts.SetListToTxt();
+    	    }
     	    
     	    if(var3.equalsIgnoreCase(".book paste")) {
     	    	commandfound = true;
-    	    	while(Minecraft.getMinecraft().thePlayer.getHeldItem().getTagCompound().getTagList("pages").tagCount() > 0) {
-    	    		Minecraft.getMinecraft().thePlayer.getHeldItem().getTagCompound().getTagList("pages").removeTag(0);
+    	    	while(mc.thePlayer.getHeldItem().getTagCompound().getTagList("pages").tagCount() > 0) {
+    	    		mc.thePlayer.getHeldItem().getTagCompound().getTagList("pages").removeTag(0);
     	    	}
     	    	for(int i = 0; i < bookPagesCopy.tagCount(); i++) {
-    	    		Minecraft.getMinecraft().thePlayer.getHeldItem().getTagCompound().getTagList("pages").appendTag(bookPagesCopy.tagAt(i));
+    	    		mc.thePlayer.getHeldItem().getTagCompound().getTagList("pages").appendTag(bookPagesCopy.tagAt(i));
     	    	}
     	    }
     	    
@@ -783,21 +923,32 @@ public class ChatCommands {
     	    
     	    if(var3.equalsIgnoreCase(".help")) {
     	    	commandfound = true;
-    	    	Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> do .modules to get a list of modules.");
-    	    	Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> do .commands to get a list of commands.");
-    	    	Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> do .help CommandName/moduleName to get help about a specific command/module");
+    	    	mc.thePlayer.addChatMessage("<popbob> do .modules to get a list of modules.");
+    	    	mc.thePlayer.addChatMessage("<popbob> do .commands to get a list of commands.");
+    	    	mc.thePlayer.addChatMessage("<popbob> do .help CommandName/moduleName to get help about a specific command/module");
     	    }
     	    if(var3.equalsIgnoreCase(".Modules")) {
     	    	commandfound = true;
-    	    	Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> AntiFall, AutoArmor, AutoEat, AutoMine, AutoR, AutoSwim, AutoWalk, AutoWhisper, BlockFinder, CensorWords, ChestFinder, CustomBook, FastPlace, Fly, Freecam, FullBright, GamerFov, Glide, Jesus, KillAura, LogOnSight, LongMessages, Macro, NoClip, NoFall, Recording, SafeWalk, Scaffold, Spam, Sprint, SuperJesus, Teleport, Tracers, Xray");
+    	    	mc.thePlayer.addChatMessage("<popbob> AntiFall, AutoArmor, AutoEat, AutoMine, AutoR, AutoSwim, AutoWalk, AutoWhisper, BlockFinder, CensorWords, ChestFinder, CustomBook, FastPlace, Fly, Freecam, FullBright, GamerFov, Glide, Jesus, KillAura, LogOnSight, LongMessages, Macro, NoClip, NoFall, Recording, SafeWalk, Scaffold, Spam, Sprint, SuperJesus, Teleport, Tracers, Xray");
     	    }
     	    
     	    if(var3.equalsIgnoreCase(".commands")) {
     	    	commandfound = true;
-    	    	Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> AutoReconnect, BookBot, Book copy, Book paste, Bookspam, Bind, Goto, Math, Steal, Vclip");
+    	    	mc.thePlayer.addChatMessage("<popbob> AutoReconnect, BookBot, Book copy, Book paste, Bookspam, Bind, Goto, Math, Steal, Vclip");
     	    }
     	    
-    	    
+    	  //ShortCuts
+    	    if(!commandfound) {
+	    	for(int i = 0; i < Shortcuts.ShortcutsListLength; i++) {
+	    		if(var3.toLowerCase().startsWith(Shortcuts.ShortcutsList[i].substring(0, Shortcuts.ShortcutsList[i].indexOf(":")).toLowerCase())) {
+	    			var3 = var3.toLowerCase().replace(Shortcuts.ShortcutsList[i].substring(0, Shortcuts.ShortcutsList[i].indexOf(":")).toLowerCase(), Shortcuts.ShortcutsList[i].substring(Shortcuts.ShortcutsList[i].indexOf(":") + 1).toLowerCase());
+	    			sendChatmsgs(var3);
+	    			commandfound = true;
+	    			break;
+	    		}
+	    	}
+    	    }
+	    	
 	    	
     	    
     	    pattern = Pattern.compile(".help ", Pattern.CASE_INSENSITIVE);
@@ -811,71 +962,69 @@ public class ChatCommands {
     	    		String str10 = PopbobHack.getModules().get(i).getName();
     	    		if(var3.equalsIgnoreCase(str10)) {
     	    			foundhelp = true;
-    	    			Minecraft.getMinecraft().thePlayer.addChatMessage(CommandHelp.commandHelp.get(i));
+    	    			mc.thePlayer.addChatMessage(CommandHelp.commandHelp.get(i));
     	    		}
     	    			
     	    	}
     	    	
-    	    	
-    	    	
     	    	if(var3.equalsIgnoreCase("BookBot")) {
     	    		foundhelp = true;
-    	    		Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> Syntax is .BookBot fileName. Converts a txt file into a minecraft book. If the txt file is longer than 50 minecraft pages it converts the rest of the txt file if you run the command again. If you do .BookClear it sets the contents it's converting to the original file.");
+    	    		mc.thePlayer.addChatMessage("<popbob> Syntax is .BookBot fileName. Converts a txt file into a minecraft book. If the txt file is longer than 50 minecraft pages it converts the rest of the txt file if you run the command again. If you do .BookClear it sets the contents it's converting to the original file.");
     	    	}
     	    	
     	    	if(var3.equalsIgnoreCase("Book copy")) {
     	    		foundhelp = true;
-    	    		Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> copies the contents of the book you're holding. To paste it do .Book paste");
+    	    		mc.thePlayer.addChatMessage("<popbob> copies the contents of the book you're holding. To paste it do .Book paste");
     	    	}
     	    	
     	    	if(var3.equalsIgnoreCase("Book paste")) {
     	    		foundhelp = true;
-    	    		Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> pastes the contents of book copied using .book copy");
+    	    		mc.thePlayer.addChatMessage("<popbob> pastes the contents of book copied using .book copy");
     	    	}
     	    	
     	    	if(var3.equalsIgnoreCase("Bookspam")) {
     	    		foundhelp = true;
-    	    		Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> fills a book with spam. Syntax is .Bookspam String Boolean. The string is what the book gets spammed with. boolean = false makes so it spams the string multiple times on the page otherwise it only writes it once.");
+    	    		mc.thePlayer.addChatMessage("<popbob> fills a book with spam. Syntax is .Bookspam String Boolean. The string is what the book gets spammed with. boolean = false makes so it spams the string multiple times on the page otherwise it only writes it once.");
     	    	}
     	    	
     	    	if(var3.equalsIgnoreCase("Bind")) {
     	    		foundhelp = true;
-    	    		Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> .bind moduleName key I hope you understand :)");
+    	    		mc.thePlayer.addChatMessage("<popbob> .bind moduleName key I hope you understand :)");
     	    	}
     	    	
     	    	if(var3.equalsIgnoreCase("goto")) {
         	    	foundhelp = true;
-        	    	Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> .goto x z is the syntax. This isn't fucking baritone it just calculates the optimal yaw to walk towards though I hate arctan so the angle is often off by 180 degress so do .goto add 180 if its wrong you nerd.");
+        	    	mc.thePlayer.addChatMessage("<popbob> .goto x z is the syntax. This doesn't walk for you it just calculates the optimal yaw to walk towards");
         	    }
     	    	
     	    	if(var3.equalsIgnoreCase("steal")) {
     	    		foundhelp = true;
-    	    		Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> syntax = .steal infMode boolean. Boolean should be true if you want to steal infs. Can only steal 9 infs at the time.");
+    	    		mc.thePlayer.addChatMessage("<popbob> syntax = .steal infMode boolean. Boolean should be true if you want to steal infs. Can only steal 9 infs at the time.");
     	    	}
     	    	
     	    	if(var3.equalsIgnoreCase("math")) {
     	    		foundhelp = true;
-    	    		Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> the syntax is .math mathThings. It only supports +, -, / and *. You can also use .calc which does the same thing.");
+    	    		mc.thePlayer.addChatMessage("<popbob> the syntax is .math mathThings. It only supports +, -, / and *. You can also use .calc which does the same thing.");
     	    	}
     	    	
     	    	if(var3.equalsIgnoreCase("vclip")) {
     	    		foundhelp = true;
-    	    		Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> vclip = vertical clip. NCP patches this so I don't see why you care. I hope you understand this and stop caring.");
+    	    		mc.thePlayer.addChatMessage("<popbob> vclip = vertical clip. NCP patches this so I don't see why you care. I hope you understand this and stop caring.");
     	    	}
     	    	
     	    	if(var3.equalsIgnoreCase("AutoReconnect")) {
     	    		foundhelp = true;
-    	    		Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> syntax is .Autoreconnect delay NUMBER");
+    	    		mc.thePlayer.addChatMessage("<popbob> syntax is .Autoreconnect delay NUMBER");
     	    	}
     	    	
     	    	if(!foundhelp) {
-    	    	Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> " + var3 + " is not a command or module retard");
+    	    	mc.thePlayer.addChatMessage("<popbob> " + var3 + " is not a command or module and im tired of pretending it is do .help");
     	    	}
     	    	
     	    }
     	    var3 = var3.substring(1);
     	    if(!commandfound) {
-    	    	Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> " + var3 + " is not a command or module retard do .help because your clearly clueless");
+    	    	mc.thePlayer.addChatMessage("<popbob> " + var3 + " is not a command or module am im tired of pretending it is do .help");
     	    }
     	    
     	    
@@ -889,7 +1038,7 @@ public class ChatCommands {
     	    
 		}catch(Exception e) {
 			e.printStackTrace();
-			Minecraft.getMinecraft().thePlayer.addChatMessage("<popbob> thats not how you do syntax try again");
+			mc.thePlayer.addChatMessage("<popbob> thats not how you do syntax try again");
 		}
 	} else {
 		if(PopbobHack.getModules().get(35).isToggled()) {
@@ -897,10 +1046,10 @@ public class ChatCommands {
 		}else if(PopbobHack.getModules().get(37).isToggled()) {
 			var3 = "/w " + AutoWhisper.player + " " + var3;
 		}
-		if(!Minecraft.getMinecraft().getSession().getUsername().equals(PopbobHack.ShadowBan) || var3.startsWith("/")) {
-		Minecraft.getMinecraft().thePlayer.sendChatMessage(var3);
+		if(!mc.getSession().getUsername().equals(PopbobHack.ShadowBan) || var3.startsWith("/")) {
+		mc.thePlayer.sendChatMessage(var3);
 		}else {
-			Minecraft.getMinecraft().thePlayer.addChatMessage("<" + PopbobHack.ShadowBan + "> " + var3);
+			mc.thePlayer.addChatMessage("<" + PopbobHack.ShadowBan + "> " + var3);
 		}
 	}
 	}

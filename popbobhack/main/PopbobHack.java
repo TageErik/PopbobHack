@@ -20,9 +20,7 @@ import net.minecraft.src.NBTTagList;
 import net.minecraft.src.Packet;
 import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.RenderGlobal;
-import popbobhack.config.KeyBinds;
-import popbobhack.config.RandomShit;
-import popbobhack.config.SaveSettings;
+import popbobhack.config.*;
 import popbobhack.mods.*;
 import popbobhack.mods.Module;
 import popbobhack.utils.ChatCommands;
@@ -92,20 +90,30 @@ public class PopbobHack {
 		AddMod(new BucketMLG());
 		AddMod(new DisconnectFall());
 		AddMod(new SignBot());
-		AddMod(new PlaceHolder());
+		AddMod(new SoundLocator());
 		AddMod(new AutoSign());
+		AddMod(new EntityFinder());
+		//50
+		AddMod(new LeetH4xx0r());
+		AddMod(new EnderShitter());
+		AddMod(new PortalFinder());
+		AddMod(new Hold());
+		AddMod(new BuildMode());
 		
 		CustomBook.SetListToTxt();
 		RandomShit.SetListToTxt();
 		CensorNaughtyWords.SetListToTxt();
 		BlockFinder.SetListToTxt();
+		EntityFinder.SetListToTxt();
 		Xray.SetListToTxt();
 		LogOnSight.SetListToTxt();
 		KeyBinds.SetListToTxt();
 		SaveSettings.SetListToTxt();
 		AutoSign.SetListToTxt();
+		Waypoint.SetListToTxt();
+		Shortcuts.SetListToTxt();
 	}
-	public static String ClientName = "PopbobHack 1.6.4 V1.2";
+	public static String ClientName = "PopbobHack 1.6.4 V1.3";
 	public static String ShadowBan = "MinistroMinhoca";
 	
 	public static void AddMod(Module m) {
@@ -115,7 +123,6 @@ public class PopbobHack {
 		return mods;
 	}
 
-	//your mom is fat
 	public static void onUpdate() {
 		for(Module m: mods) {
 			m.onUpdate();
@@ -128,7 +135,7 @@ public class PopbobHack {
 		if(isFirstTime) {
 		for(int i = 0; i < SaveSettings.SettingsListLength; i++) {
 			for(int i2 = 0; i2 < PopbobHack.getModules().size(); i2++) {
-				if(!PopbobHack.getModules().get(i2).getName().equals("Recording") && !PopbobHack.getModules().get(i2).getName().equals("Macro") && !PopbobHack.getModules().get(i2).getName().equals("EnderShit") && !PopbobHack.getModules().get(i2).getName().equals("AutoR") && !PopbobHack.getModules().get(i2).getName().equals("AutoWhisper")) {
+				if(!PopbobHack.getModules().get(i2).getName().equals("Recording") && !PopbobHack.getModules().get(i2).getName().equals("Macro") && !PopbobHack.getModules().get(i2).getName().equals("EnderShit") && !PopbobHack.getModules().get(i2).getName().equals("AutoR") && !PopbobHack.getModules().get(i2).getName().equals("AutoWhisper") && !PopbobHack.getModules().get(i2).getName().equals("EnderShitter")) {
 				if(PopbobHack.getModules().get(i2).getName().equals(SaveSettings.SettingsList[i])) {
 					PopbobHack.getModules().get(i2).toggle();
 				}

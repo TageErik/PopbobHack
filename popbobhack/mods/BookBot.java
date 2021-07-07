@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import net.minecraft.src.GuiScreenBook;
 import net.minecraft.src.Minecraft;
@@ -15,8 +16,12 @@ public class BookBot {
 	public static int i3 = 0;
 	public static void Run(String file){
 		try {
+			
 			file = "/PopbobHack/Books/" + file + ".txt";
 			//System.out.println(file);
+			String home = System.getProperty("user.home");
+			file = home + file;
+			file.replaceAll("/", Pattern.quote(File.separator));
 			File Book = new File(file);
 			if(!Book.exists()) {
 				try {

@@ -1,7 +1,6 @@
 package popbobhack.mods;
 
 import org.lwjgl.input.Keyboard;
-
 import popbobhack.config.Config;
 import popbobhack.config.KeyBinds;
 import popbobhack.main.Category;
@@ -16,6 +15,7 @@ public class Recording extends Module{
 	public static String RecordingName;
 	public static String[] RecordingList = new String[50000];
 	public static int RecordingListLength;
+	public static String chatMessageBeingSent = "null";
 	
 	public static int ticks = 0;
 	
@@ -42,18 +42,28 @@ public class Recording extends Module{
 		Config.ListPrint(RecordingList, RecordingListLength);
 	}
 	
+	public static String ItemSlot = "0";
+	public static boolean UseItemName = true;
+	
 	public void onUpdate() {
 		if(isToggled()) {
 			keys = "";
-	    	Recording.RecordingList[ticks] = String.valueOf(mc.gameSettings.keyBindForward.pressed + ":" + mc.thePlayer.rotationYaw + ":" + mc.thePlayer.rotationPitch + ":" + mc.gameSettings.keyBindLeft.pressed + ":" + mc.gameSettings.keyBindRight.pressed + ":" + mc.gameSettings.keyBindBack.pressed + ":" + mc.thePlayer.inventory.currentItem + ":" + mc.gameSettings.keyBindJump.pressed + ":" + mc.gameSettings.keyBindAttack.pressed + ":" + mc.gameSettings.keyBindUseItem.pressed + ":" + mc.gameSettings.keyBindSneak.pressed);
+			if(!UseItemName) {
+				ItemSlot = String.valueOf(mc.thePlayer.inventory.currentItem);
+			}
+	    	Recording.RecordingList[ticks] = String.valueOf(mc.gameSettings.keyBindForward.pressed + ":" + mc.thePlayer.rotationYaw + ":" + mc.thePlayer.rotationPitch + ":" + mc.gameSettings.keyBindLeft.pressed + ":" + mc.gameSettings.keyBindRight.pressed + ":" + mc.gameSettings.keyBindBack.pressed + ":" + ItemSlot + ":" + mc.gameSettings.keyBindJump.pressed + ":" + mc.gameSettings.keyBindAttack.pressed + ":" + mc.gameSettings.keyBindUseItem.pressed + ":" + mc.gameSettings.keyBindSneak.pressed + ":" + chatMessageBeingSent);
+	    	chatMessageBeingSent = "null";
 	    	Recording.RecordingListLength = ticks+1;
-	    	Recording.onListUpdated();
 			ticks++;
 			keys = "";
 			if(PopbobHack.getModules().get(33).isToggled()) {
 				toggle();
 			}
 		}
+	}
+	
+	public void onDisable() {
+		Recording.onListUpdated();
 	}
 
 }

@@ -1,14 +1,14 @@
 package popbobhack.utils;
 
-import net.minecraft.src.Block;
+import net.minecraft.src.Item;
 
 public class NameToId {
 	public static int NameToIdFunc(String var3) {
-		for(int i = 0; i < Block.blocksList.length; i++) {
+		for(int i = 0; i < Item.itemsList.length; i++) {
 			try {
-			//System.out.println(Block.blocksList[i]);
-			if(var3.equalsIgnoreCase(Block.blocksList[i].getLocalizedName())) {
-				return Block.blocksList[i].blockID;
+			//System.out.println(item.itemsList[i]);
+			if(var3.equalsIgnoreCase(Item.itemsList[i].getStatName())) {
+				return Item.itemsList[i].itemID;
 			}
 			}catch(Exception e) {}
 		}

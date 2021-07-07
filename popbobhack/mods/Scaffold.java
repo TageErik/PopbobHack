@@ -95,4 +95,8 @@ public class Scaffold extends Module{
 		}
 
 }
+	
+	public void onDisable() {
+		mc.gameSettings.keyBindUseItem.pressed = false;
+	}
 }

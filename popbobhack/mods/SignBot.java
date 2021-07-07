@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import net.minecraft.src.GuiEditSign;
 import net.minecraft.src.Minecraft;
@@ -25,6 +26,9 @@ public class SignBot extends Module{
 		try {
 			String file = "/PopbobHack/Signs/" + file2 + ".txt";
 			//System.out.println(file);
+			String home = System.getProperty("user.home");
+			file = home + file;
+			file.replaceAll("/", Pattern.quote(File.separator));
 			File Sign = new File(file);
 			if(!Sign.exists()) {
 				try {

@@ -38,7 +38,7 @@ public class CommandHelp {
 		//ChestFinder
 	commandHelp.add("<popbob> finds chests");
 		//KillAura
-	commandHelp.add("<popbob> this is shit don't use. do .KillAura delay NUMBER to change the hit delay");
+	commandHelp.add("<popbob> this is bad don't use. do .KillAura delay NUMBER to change the hit delay");
 		//Scaffold
 	commandHelp.add("<popbob> scaffold moment.");
 		//Freecam
@@ -64,7 +64,7 @@ public class CommandHelp {
 		//CensorWords
 	commandHelp.add("<popbob> Censors certain words. do .CensorWords add WORD to add a word to the censor list. Do .CensorWords del WORD to remove a word from the list. Do .CensorWords print to display the list. Do .CensorWords Default to apply the default censor words list!");
 		//Glide
-	commandHelp.add("<popbob> I want you to glide into my pussy ;)");
+	commandHelp.add("<popbob> glides");
 		//EnderShit
 	commandHelp.add("<popbob> does shit with ender pearls");
 		//LogOnSight
@@ -99,8 +99,8 @@ public class CommandHelp {
 	commandHelp.add("<popbob> Disconnect right before you land after falling a certain distance. When you relog you won't take fall damage. Do .DisconnectNoFall NUMBER to set this number");
 		//SignBot
 	commandHelp.add("<popbob> todo: add tutorial on how to use this");
-		//PlaceHolder
-	commandHelp.add("<popbob> its a placeholder");
+		//SoundLocator
+	commandHelp.add("<popbob> it's thunderhack");
 		//AutoSign
 	commandHelp.add("<popbob> it autowrites signs press the autosign button to choose the text of the signs");
 	}

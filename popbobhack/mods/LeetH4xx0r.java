@@ -2,10 +2,10 @@ package popbobhack.mods;
 
 import popbobhack.main.Category;
 
-public class AutoR extends Module{
+public class LeetH4xx0r extends Module{
 
-	public AutoR() {
-		super("AutoR", 0, Category.PLAYER);
+	public LeetH4xx0r() {
+		super("LeetH4xx0r", 0, Category.RENDER);
 		// TODO Auto-generated constructor stub
 	}
 
